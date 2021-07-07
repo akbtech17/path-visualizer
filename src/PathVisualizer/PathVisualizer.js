@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import './PathVisualizer.css';
+import "./PathVisualizer.css";
 import Node from "./Node/Node";
+import { dijkstra, getNodesInShortestPathOrder } from "../Algorithms/dijkstra";
 
 const START_NODE_ROW = 10;
 const START_NODE_COL = 15;
@@ -21,10 +22,29 @@ export default class PathVisualizer extends Component {
     this.setState({ grid });
   }
 
+  visualizeDijkstra() {
+    const { grid } = this.state;
+    const startNode = grid[START_NODE_ROW][START_NODE_COL];
+    const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
+
+    const visitedNodesInorder = dijkstra(grid, startNode, finishNode);
+    console.log(visitedNodesInorder);
+
+    // const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
+    // console.log(nodesInShortestPathOrder);
+  }
+
   render() {
     const { grid } = this.state;
     return (
       <>
+        <button
+          onClick={() => {
+            this.visualizeDijkstra();
+          }}
+        >
+          Visualize Dijkstra's Algorithm
+        </button>
         <div className="grid">
           {/* rendering the grid */}
           {grid.map((row, rowIdx) => {
