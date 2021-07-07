@@ -25,7 +25,7 @@ export default class PathVisualizer extends Component {
             return (
               <div key={rowIdx}>
                 {row.map((node, nodeIdx) => {
-                  return <Node />;
+                  return <Node key={`${rowIdx} ${nodeIdx}`} />;
                 })}
               </div>
             );
