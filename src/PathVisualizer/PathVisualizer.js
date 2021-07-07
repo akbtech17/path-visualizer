@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Node from "./Node/Node";
 
 export default class PathVisualizer extends Component {
   // constructor() {}
@@ -8,7 +9,7 @@ export default class PathVisualizer extends Component {
   render() {
     return (
       <>
-        <h1>Hello this is my app!</h1>
+        <Node />
       </>
     );
   }
