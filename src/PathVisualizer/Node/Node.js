@@ -3,6 +3,14 @@ import "./Node.css";
 
 export default class Node extends Component {
   render() {
-    return <div className="node"></div>;
+    const { row, col, isFinish, isStart } = this.props;
+    const extraClassName = isFinish
+      ? "node-finish"
+      : isStart
+      ? "node-start"
+      : "";
+    return (
+      <div id={`node-${row}-${col}`} className={`node ${extraClassName}`}></div>
+    );
   }
 }

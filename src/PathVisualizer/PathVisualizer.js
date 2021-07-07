@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import Node from "./Node/Node";
 
+const START_NODE_ROW = 10;
+const START_NODE_COL = 15;
+const FINISH_NODE_ROW = 10;
+const FINISH_NODE_COL = 35;
+
 export default class PathVisualizer extends Component {
   constructor() {
     super();
@@ -25,7 +30,16 @@ export default class PathVisualizer extends Component {
             return (
               <div key={rowIdx}>
                 {row.map((node, nodeIdx) => {
-                  return <Node key={`${rowIdx} ${nodeIdx}`} />;
+                  const { row, col, isFinish, isStart } = node;
+                  return (
+                    <Node
+                      key={nodeIdx}
+                      row={row}
+                      col={col}
+                      isFinish={isFinish}
+                      isStart={isStart}
+                    />
+                  );
                 })}
               </div>
             );
@@ -56,5 +70,7 @@ const createNode = (col, row) => {
   return {
     col,
     row,
+    isStart: row === START_NODE_ROW && col === START_NODE_COL,
+    isFinish: row === FINISH_NODE_ROW && col === FINISH_NODE_COL,
   };
 };
