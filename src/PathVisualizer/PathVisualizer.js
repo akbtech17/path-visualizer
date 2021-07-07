@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import './PathVisualizer.css';
 import Node from "./Node/Node";
 
 const START_NODE_ROW = 10;
