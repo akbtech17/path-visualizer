@@ -36,6 +36,7 @@ export default class PathVisualizer extends Component {
       // set timeout for each node, depending upon the distance (say index)
       setTimeout(() => {
         const node = visitedNodesInorder[i];
+
         // get the node and update its className as visited
         document.getElementById(`node-${node.row}-${node.col}`).className =
           "node node-visited";
@@ -46,7 +47,7 @@ export default class PathVisualizer extends Component {
   // animate the shortest path possible from source node to destination node
   animateShortestPath(nodesInShortestPathOrder) {
     for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
-      console.log(nodesInShortestPathOrder[i]);
+      // console.log(nodesInShortestPathOrder[i]);
       setTimeout(() => {
         const node = nodesInShortestPathOrder[i];
         if (node === undefined) return;
@@ -65,7 +66,7 @@ export default class PathVisualizer extends Component {
     // console.log(visitedNodesInorder);
 
     const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
-    console.log(nodesInShortestPathOrder);
+    // console.log(nodesInShortestPathOrder);
     this.animateDijkstra(visitedNodesInorder, nodesInShortestPathOrder);
   }
 
