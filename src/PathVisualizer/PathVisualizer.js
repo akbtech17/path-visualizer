@@ -25,14 +25,18 @@ export default class PathVisualizer extends Component {
   // animate the searching patter of dijkstras
   animateDijkstra(visitedNodesInorder) {
     // iterate all nodes...
-    for (let i = 0; i < visitedNodesInorder.length; i++) {
+    for (let i = 0; i <= visitedNodesInorder.length; i++) {
+      if (i === visitedNodesInorder.length) {
+        console.log("animate the shortest path now!!!");
+        continue;
+      }
       // set timeout for each node, depending upon the distance (say index)
       setTimeout(() => {
         const node = visitedNodesInorder[i];
         // get the node and update its className as visited
         document.getElementById(`node-${node.row}-${node.col}`).className =
           "node node-visited";
-      }, 10*i);
+      }, 10 * i);
     }
   }
 
