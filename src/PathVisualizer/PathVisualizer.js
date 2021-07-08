@@ -23,12 +23,15 @@ export default class PathVisualizer extends Component {
   }
 
   // animate the searching patter of dijkstras
-  animateDijkstra(visitedNodesInorder) {
+  animateDijkstra(visitedNodesInorder, nodesInShortestPathOrder) {
     // iterate all nodes...
     for (let i = 0; i <= visitedNodesInorder.length; i++) {
       if (i === visitedNodesInorder.length) {
-        console.log("animate the shortest path now!!!");
-        continue;
+        // console.log("animate the shortest path now!!!");
+        setTimeout(() => {
+          this.animateShortestPath(nodesInShortestPathOrder);
+        }, 10 * i);
+        return;
       }
       // set timeout for each node, depending upon the distance (say index)
       setTimeout(() => {
@@ -40,6 +43,19 @@ export default class PathVisualizer extends Component {
     }
   }
 
+  // animate the shortest path possible from source node to destination node
+  animateShortestPath(nodesInShortestPathOrder) {
+    for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
+      console.log(nodesInShortestPathOrder[i]);
+      setTimeout(() => {
+        const node = nodesInShortestPathOrder[i];
+        if (node === undefined) return;
+        document.getElementById(`node-${node.row}-${node.col}`).className =
+          "node node-shortest-path";
+      }, 50 * i);
+    }
+  }
+
   visualizeDijkstra() {
     const { grid } = this.state;
     const startNode = grid[START_NODE_ROW][START_NODE_COL];
@@ -47,10 +63,10 @@ export default class PathVisualizer extends Component {
 
     const visitedNodesInorder = dijkstra(grid, startNode, finishNode);
     // console.log(visitedNodesInorder);
-    this.animateDijkstra(visitedNodesInorder);
 
-    // const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
-    // console.log(nodesInShortestPathOrder);
+    const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
+    console.log(nodesInShortestPathOrder);
+    this.animateDijkstra(visitedNodesInorder, nodesInShortestPathOrder);
   }
 
   render() {
