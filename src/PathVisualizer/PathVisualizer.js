@@ -52,8 +52,9 @@ export default class PathVisualizer extends Component {
       setTimeout(() => {
         const node = nodesInShortestPathOrder[i];
         if (node === undefined) return;
-        document.getElementById(`node-${node.row}-${node.col}`).className =
-          "node node-shortest-path";
+        if (!node.isStart && !node.isFinish)
+          document.getElementById(`node-${node.row}-${node.col}`).className =
+            "node node-shortest-path";
       }, 50 * i);
     }
   }
