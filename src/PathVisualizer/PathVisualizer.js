@@ -38,8 +38,9 @@ export default class PathVisualizer extends Component {
         const node = visitedNodesInorder[i];
 
         // get the node and update its className as visited
-        document.getElementById(`node-${node.row}-${node.col}`).className =
-          "node node-visited";
+        if (!node.isStart && !node.isFinish)
+          document.getElementById(`node-${node.row}-${node.col}`).className =
+            "node node-visited";
       }, 10 * i);
     }
   }
