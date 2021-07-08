@@ -28,10 +28,10 @@ export default class PathVisualizer extends Component {
     const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
 
     const visitedNodesInorder = dijkstra(grid, startNode, finishNode);
-    console.log(visitedNodesInorder);
+    // console.log(visitedNodesInorder);
 
-    // const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
-    // console.log(nodesInShortestPathOrder);
+    const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
+    console.log(nodesInShortestPathOrder);
   }
 
   render() {
@@ -93,5 +93,8 @@ const createNode = (col, row) => {
     row,
     isStart: row === START_NODE_ROW && col === START_NODE_COL,
     isFinish: row === FINISH_NODE_ROW && col === FINISH_NODE_COL,
+    distance: Infinity,
+    isVisited: false,
+    previousNode: null,
   };
 };
