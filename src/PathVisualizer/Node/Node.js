@@ -3,7 +3,7 @@ import "./Node.css";
 
 export default class Node extends Component {
   render() {
-    const { row, col, isFinish, isStart } = this.props;
+    const { row, col, isFinish, isStart} = this.props;
     const extraClassName = isFinish
       ? "node-finish"
       : isStart

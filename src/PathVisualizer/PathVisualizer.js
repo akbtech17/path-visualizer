@@ -22,6 +22,20 @@ export default class PathVisualizer extends Component {
     this.setState({ grid });
   }
 
+  // animate the searching patter of dijkstras
+  animateDijkstra(visitedNodesInorder) {
+    // iterate all nodes...
+    for (let i = 0; i < visitedNodesInorder.length; i++) {
+      // set timeout for each node, depending upon the distance (say index)
+      setTimeout(() => {
+        const node = visitedNodesInorder[i];
+        // get the node and update its className as visited
+        document.getElementById(`node-${node.row}-${node.col}`).className =
+          "node node-visited";
+      }, 10*i);
+    }
+  }
+
   visualizeDijkstra() {
     const { grid } = this.state;
     const startNode = grid[START_NODE_ROW][START_NODE_COL];
@@ -29,9 +43,10 @@ export default class PathVisualizer extends Component {
 
     const visitedNodesInorder = dijkstra(grid, startNode, finishNode);
     // console.log(visitedNodesInorder);
+    this.animateDijkstra(visitedNodesInorder);
 
-    const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
-    console.log(nodesInShortestPathOrder);
+    // const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
+    // console.log(nodesInShortestPathOrder);
   }
 
   render() {
