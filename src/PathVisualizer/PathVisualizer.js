@@ -13,6 +13,7 @@ export default class PathVisualizer extends Component {
     super();
     this.state = {
       grid: [],
+      mouseIsPressed: false,
     };
   }
 
@@ -20,6 +21,21 @@ export default class PathVisualizer extends Component {
     //   creating grid of indexes and updating the state, in initial render
     const grid = getInintialGrid();
     this.setState({ grid });
+  }
+
+  handleMouseDown(row, col) {
+    const newGrid = getNewGridWithWallToggled(this.state.grid, row, col);
+    this.setState({ grid: newGrid, mouseIsPressed: true });
+  }
+
+  handleMouseUp() {
+    this.setState({ mouseIsPressed: false });
+  }
+
+  handleMouseEnter(row, col) {
+    if (!this.state.mouseIsPressed) return;
+    const newGrid = getNewGridWithWallToggled(this.state.grid, row, col);
+    this.setState({ grid: newGrid });
   }
 
   // animate the searching patter of dijkstras
@@ -73,7 +89,7 @@ export default class PathVisualizer extends Component {
   }
 
   render() {
-    const { grid } = this.state;
+    const { grid, mouseIsPressed } = this.state;
     return (
       <>
         <button
@@ -89,7 +105,7 @@ export default class PathVisualizer extends Component {
             return (
               <div key={rowIdx}>
                 {row.map((node, nodeIdx) => {
-                  const { row, col, isFinish, isStart } = node;
+                  const { row, col, isFinish, isStart, isWall } = node;
                   return (
                     <Node
                       key={nodeIdx}
@@ -97,6 +113,13 @@ export default class PathVisualizer extends Component {
                       col={col}
                       isFinish={isFinish}
                       isStart={isStart}
+                      isWall={isWall}
+                      mouseIsPressed={mouseIsPressed}
+                      onMouseDown={(row, col) => this.handleMouseDown(row, col)}
+                      onMouseUp={() => this.handleMouseUp(row, col)}
+                      onMouseEnter={(row, col) =>
+                        this.handleMouseEnter(row, col)
+                      }
                     />
                   );
                 })}
@@ -133,6 +156,20 @@ const createNode = (col, row) => {
     isFinish: row === FINISH_NODE_ROW && col === FINISH_NODE_COL,
     distance: Infinity,
     isVisited: false,
+    isWall: false,
     previousNode: null,
   };
+};
+
+const getNewGridWithWallToggled = (grid, row, col) => {
+  const newGrid = grid.slice();
+  const node = newGrid[row][col];
+
+  const newNode = {
+    ...node,
+    isWall: !node.isWall,
+  };
+
+  newGrid[row][col] = newNode;
+  return newGrid;
 };

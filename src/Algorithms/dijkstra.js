@@ -14,7 +14,8 @@ export function dijkstra(grid, startNode, finishNode) {
     // console.log(unvisitedNodes.length);
     sortNodesByDistance(unvisitedNodes); //sort the array of unvis nodes
     const closestNode = unvisitedNodes.shift(); //get the first node from the sorted array
-
+    // If we encounter a wall, we skip it.
+    if (closestNode.isWall) continue;
     if (closestNode.distance === Infinity) return visitedNodesInOrder;
     closestNode.isVisited = true; // mark the curr node as vis
     visitedNodesInOrder.push(closestNode);

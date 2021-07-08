@@ -18,5 +18,9 @@
 }
 
 .node-shortest-path {
-  background-color: black;
+  background-color: rgb(161, 192, 22);
+}
+
+.node-wall {
+  background-color: brown;
 }
